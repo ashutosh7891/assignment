@@ -1,24 +1,27 @@
-import logo from './logo.svg';
+// src/App.js
+import React, { useState } from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
+import Header from './components/Header';
+import TaskInput from './components/TaskInput';
+import TaskList from './components/TaskList';
 import './App.css';
 
 function App() {
+  const [isTaskInputVisible, setIsTaskInputVisible] = useState(false);
+
+  const toggleTaskInput = () => {
+    setIsTaskInputVisible(!isTaskInputVisible);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Header toggleTaskInput={toggleTaskInput} />
+        <TaskInput isVisible={isTaskInputVisible} toggleTaskInput={toggleTaskInput} />
+        <TaskList />
+      </div>
+    </Provider>
   );
 }
 
