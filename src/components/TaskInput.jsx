@@ -10,6 +10,7 @@ const TaskInput = ({ isVisible, toggleTaskInput }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!description || !deadline) return alert('Please fill out all fields')
     if (description && deadline) {
       dispatch(addTask({
         id: Date.now(),
